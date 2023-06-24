@@ -3,7 +3,7 @@ export interface MovieScore {
     Score: number
 }
 
-export interface UserData {
+export interface UserCollection {
     idUser: number,
     scores: MovieScore[];
 }
