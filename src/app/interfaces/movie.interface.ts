@@ -6,9 +6,9 @@ export interface Movie {
     image: string,
     title: string,
     runtime: number,
-    releaseDate: Date,
+    releaseDate: string,
     score: number,
     userScore?: number,
-    genres: Genre[],
-    rating: Rating
+    genres: number[],
+    rating: number
 }

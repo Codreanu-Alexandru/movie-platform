@@ -9,34 +9,34 @@ export class MiscServicesService {
 
   Ratings: Rating[] = [
     {
-      id:1,
-      name:'G',
-      description:'All Ages'
+      id: 1,
+      name: 'G',
+      description: 'All Ages'
     },
     {
-      id:2,
-      name:'PG',
-      description:'Children'
+      id: 2,
+      name: 'PG',
+      description: 'Children'
     },
     {
-      id:3,
-      name:'PG-13',
-      description:'Teens 13 or older'
+      id: 3,
+      name: 'PG-13',
+      description: 'Teens 13 or older'
     },
     {
-      id:4,
-      name:'R',
-      description:'17+ (violence & profanity)'
+      id: 4,
+      name: 'R',
+      description: '17+ (violence & profanity)'
     },
     {
-      id:5,
-      name:'R+',
-      description:'Mild nudity'
+      id: 5,
+      name: 'R+',
+      description: 'Mild nudity'
     },
     {
-      id:6,
-      name:'Rx',
-      description:'Explicit Content'
+      id: 6,
+      name: 'Rx',
+      description: 'Explicit Content'
     }
   ];
 
@@ -119,6 +119,50 @@ export class MiscServicesService {
     },
   ];
 
-  
   constructor() { }
+
+  get ratings() {
+    return this.Ratings;
+  }
+
+  get genres() {
+    return this.Genres;
+  }
+
+  set ratings(newRatings: Rating[]) {
+    this.Ratings = newRatings;
+  }
+
+  set genres(newGenres: Genre[]) {
+    this.Genres = newGenres;
+  }
+
+  addGenre(name: string): boolean {
+    if (this.Genres.find(genre => genre.name === name)) {
+      return false;
+    }
+    else {
+      this.Genres.push(
+        {
+          id: this.Genres.length,
+          name: name
+        });
+      return true;
+    }
+  }
+
+  addRating(name: string, description?: string): boolean {
+    if (this.Ratings.find(rating => rating.name == name)) {
+      return false;
+    }
+    else {
+      this.Ratings.push(
+        {
+          id: this.Ratings.length,
+          name: name,
+          description: (description == undefined ? '' : description)
+        });
+      return true;
+    }
+  }
 }
