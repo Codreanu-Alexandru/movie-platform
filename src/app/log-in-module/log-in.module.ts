@@ -45,6 +45,7 @@ import { AppRoutingModule } from '../app-routing.module';
     NzInputModule,
     NzIconModule,
     NzImageModule
-  ]
+  ],
+  providers: [{ provide: NZ_I18N, useValue: en_US }]
 })
 export class LogInModule { }
