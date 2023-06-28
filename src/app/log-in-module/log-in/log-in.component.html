@@ -1,10 +1,7 @@
 <div class="page-container">
     <form nz-form [formGroup]="loginForm" class="login-form">
       <img
-        nz-image
         class="log-in-image"
-        nzSrc="../../../assets/log-in-logo.jpg"
-        alt=""
       />
       <h1>Log In</h1>
       <nz-form-item>
@@ -15,6 +12,7 @@
               nz-input
               formControlName="email"
               placeholder="E-Mail"
+              [(ngModel)]="logInEmail"
             />
           </nz-input-group>
         </nz-form-control>
@@ -27,6 +25,7 @@
               nz-input
               formControlName="password"
               placeholder="Password"
+              [(ngModel)]="logInPassword"
             />
           </nz-input-group>
           <div class="red-text" *ngIf="password?.errors?.['required']">
@@ -47,6 +46,6 @@
           </label>
         </div>
       </div>
-      <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+      <button nz-button (click)="logIn()" class="login-form-button" [nzType]="'primary'">Log in</button>
     </form>
   </div>
