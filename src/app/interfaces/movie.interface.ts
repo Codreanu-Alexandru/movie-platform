@@ -8,7 +8,7 @@ export interface Movie {
     runtime: number,
     releaseDate: string,
     score: number,
-    userScore?: number,
+    userScore: number,
     genres: number[],
     rating: number
 }

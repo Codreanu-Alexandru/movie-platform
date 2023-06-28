@@ -1,1 +1,42 @@
-<p>main-table works!</p>
+<div class="main-container">
+    <nz-table id="main-table" #basicTable [nzData]="currentMovies" [nzFrontPagination]="true"
+        [nzShowPagination]="false">
+        <thead>
+            <tr>
+                <th style="width: 50px;">Image</th>
+                <th style="width: 350px;">Title</th>
+                <th style="width: 110px;">Runtime</th>
+                <th style="width: 225px;">Release Date</th>
+                <th style="width: 45px;">Score</th>
+                <th style="width: 45px;">Your Score</th>
+                <th style="width: 250px;">Genres</th>
+                <th style="width: 45px;">Rating</th>
+                <th style="width: 75px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+                <td>
+                    <img class="image" src="{{ data.image }}">
+                </td>
+                <td>{{ data.title }}</td>
+                <td>{{ data.runtime | minutesConverter}}</td>
+                <td>{{ data.releaseDate | dateConverter }}</td>
+                <td>
+                    <div class="dot" [ngClass]="getColorClass(data.score)">
+                        {{ data.score }}
+                    </div>
+                </td>
+                <td>
+                    <div class="dot" [ngClass]="getColorClass(data.userScore)">
+                        {{ data.userScore }}
+                    </div>
+                </td>
+                <td>{{ data.genres | genresConverter }}</td>
+                <td>{{ data.rating | ratingConverter }}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <nz-pagination id="main-table-pagination" [nzPageSize]="8" [nzTotal]="allUserMovies.length"
+        [nzShowSizeChanger]="false" (nzPageIndexChange)="onPageIndexChanged($event)"></nz-pagination>
+</div>

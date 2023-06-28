@@ -3,18 +3,176 @@
     "id": 1,
     "email": "george.bluth@reqres.in",
     "username": "George Bluth",
-    "password": "password123"
+    "password": "password123",
+    "scores": [
+      {
+        "idMovie": 1,
+        "Score": 10
+      },
+      {
+        "idMovie": 2,
+        "Score": 9
+      },
+      {
+        "idMovie": 5,
+        "Score": 8
+      },
+      {
+        "idMovie": 6,
+        "Score": 10
+      },
+      {
+        "idMovie": 11,
+        "Score": 8
+      },
+      {
+        "idMovie": 13,
+        "Score": 7
+      },
+      {
+        "idMovie": 17,
+        "Score": 8
+      },
+      {
+        "idMovie": 20,
+        "Score": 9
+      },
+      {
+        "idMovie": 26,
+        "Score": 9
+      }
+    ]
   },
   {
     "id": 2,
     "email": "janet.weaver@reqres.in",
     "username": "Janet Weaver",
-    "password": "password123"
+    "password": "password123",
+    "scores": [
+      {
+        "idMovie": 2,
+        "Score": 10
+      },
+      {
+        "idMovie": 4,
+        "Score": 8
+      },
+      {
+        "idMovie": 8,
+        "Score": 9
+      },
+      {
+        "idMovie": 9,
+        "Score": 9
+      },
+      {
+        "idMovie": 14,
+        "Score": 10
+      },
+      {
+        "idMovie": 16,
+        "Score": 8
+      },
+      {
+        "idMovie": 17,
+        "Score": 7
+      },
+      {
+        "idMovie": 18,
+        "Score": 7
+      },
+      {
+        "idMovie": 21,
+        "Score": 9
+      },
+      {
+        "idMovie": 22,
+        "Score": 9
+      },
+      {
+        "idMovie": 23,
+        "Score": 9
+      },
+      {
+        "idMovie": 24,
+        "Score": 10
+      },
+      {
+        "idMovie": 29,
+        "Score": 10
+      },
+      {
+        "idMovie": 30,
+        "Score": 8
+      },
+      {
+        "idMovie": 31,
+        "Score": 9
+      },
+      {
+        "idMovie": 33,
+        "Score": 4
+      },
+      {
+        "idMovie": 34,
+        "Score": 4
+      },
+      {
+        "idMovie": 33,
+        "Score": 10
+      },
+      {
+        "idMovie": 37,
+        "Score": 6
+      }
+    ]
   },
   {
     "id": 3,
     "email": "emma.wong@reqres.in",
     "username": "Emma Wong",
-    "password": "password123"
+    "password": "password123",
+    "scores": [
+      {
+        "idMovie": 38,
+        "Score": 9
+      },
+      {
+        "idMovie": 39,
+        "Score": 8
+      },
+      {
+        "idMovie": 41,
+        "Score": 7
+      },
+      {
+        "idMovie": 42,
+        "Score": 7
+      },
+      {
+        "idMovie": 47,
+        "Score": 6
+      },
+      {
+        "idMovie": 28,
+        "Score": 8
+      },
+      {
+        "idMovie": 47,
+        "Score": 6
+      },
+      {
+        "idMovie": 27,
+        "Score": 8
+      },
+      {
+        "idMovie": 21,
+        "Score": 7
+      },
+      {
+        "idMovie": 14,
+        "Score": 9
+      }
+    ]
   }
 ]
