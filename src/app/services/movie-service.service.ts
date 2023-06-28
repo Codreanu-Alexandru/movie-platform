@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Movie } from '../interfaces/movie.interface';
 import MovieData from '../resources/Movies.json';
 import { Subject } from 'rxjs';
-import UserCollectionData from '../resources/UserCollection.json';
 import { User } from '../interfaces/user.interface';
 
 @Injectable({
@@ -10,98 +9,95 @@ import { User } from '../interfaces/user.interface';
 })
 export class MovieServiceService {
 
-  Movies: Movie[] = MovieData;
-  CurrentUser?: User;
-  CurrentUserMovies?: Movie[];
-  MovieSubject = new Subject<Movie[]>();
-  constructor() { }
+  movies: Movie[];
+  user?: User;
+  userMovies: Movie[];
 
-  setMovies() {
-    if (this.CurrentUser !== undefined) {
-      const userCollection = UserCollectionData.find(
-        (uc) => uc.idUser === this.CurrentUser?.id
-      );
+  constructor() {
+    this.movies = MovieData;
+    this.userMovies = [];
+  }
 
-      if (userCollection !== undefined) {
-        this.CurrentUserMovies = MovieData.filter((movie) =>
-          userCollection.scores.some((score) => score.idMovie === movie.id)
-        );
-
-        this.CurrentUserMovies.forEach((movie) => {
-          const score = userCollection.scores.find(
-            (score) => score.idMovie === movie.id
-          );
-          movie.userScore = score?.Score;
-        });
-      }
+  private setMovies() {
+    if (this.user !== undefined) {
+      const userMovieIds = this.user.scores.map((score) => score.idMovie);
+      this.userMovies = MovieData.filter((movie) => {
+        if (userMovieIds.includes(movie.id) && this.user != undefined) {
+          const score = this.user.scores.find((s) => s.idMovie === movie.id);
+          if (score) {
+            movie.userScore = score.Score;
+            return true;
+          }
+        }
+        return false;
+      });
     }
   }
 
-  get allMovies(): Movie[] {
+  get Movies(): Movie[] {
     return this.Movies;
   }
 
-  set allMovies(newMovies: Movie[]) {
+  set Movies(newMovies: Movie[]) {
     this.Movies = newMovies;
-    this.MovieSubject.next(newMovies);
   }
 
-  set currentUser(user: User) {
-    this.CurrentUser = user;
+  set User(user: User | undefined) {
+    this.user = user;
+    this.setMovies();
   }
 
-  get currentUser(): User | undefined {
-    return this.CurrentUser;
+  get User(): User | undefined {
+    return this.user;
   }
 
-  get movies(): Movie[] | undefined {
-    if (this.CurrentUser == undefined) {
-      return this.allMovies;
+  get UserMovies(): Movie[] {
+    if (this.user == undefined) {
+      return this.movies;
     }
     else {
-      return this.CurrentUserMovies;
+      return this.userMovies;
     }
   }
 
-  set movies(newMovies: Movie[]) {
-    if (this.currentUser == undefined) {
+  set UserMovies(newMovies: Movie[]) {
+    if (this.user == undefined) {
       this.Movies = newMovies;
     }
     else {
-      this.CurrentUserMovies = newMovies;
-      this.MovieSubject.next(this.CurrentUserMovies);
+      this.userMovies = newMovies;
     }
   }
 
-  deleteMovie(movie: Movie) {
-    if (this.CurrentUser == undefined) {
-      const index = this.Movies.findIndex(() => movie);
-      if (index != -1) {
-        this.Movies.splice(index, 1);
-        this.MovieSubject.next(this.Movies);
-      }
-    }
-    else {
-      const index = this.CurrentUserMovies?.findIndex(() => movie);
-      if (index != -1 && this.CurrentUserMovies != undefined && index != undefined) {
-        this.CurrentUserMovies.splice(index, 1);
-        this.MovieSubject.next(this.CurrentUserMovies);
-      }
-    }
-  }
+  // deleteMovie(movie: Movie) {
+  //   if (this.CurrentUser == undefined) {
+  //     const index = this.Movies.findIndex(() => movie);
+  //     if (index != -1) {
+  //       this.Movies.splice(index, 1);
+  //       this.MovieSubject.next(this.Movies);
+  //     }
+  //   }
+  //   else {
+  //     const index = this.CurrentUserMovies?.findIndex(() => movie);
+  //     if (index != -1 && this.CurrentUserMovies != undefined && index != undefined) {
+  //       this.CurrentUserMovies.splice(index, 1);
+  //       this.MovieSubject.next(this.CurrentUserMovies);
+  //     }
+  //   }
+  // }
 
-  addMovie(movie: Movie) {
-    if (this.CurrentUser == undefined) {
-      this.Movies.push(movie);
-      this.MovieSubject.next(this.Movies);
-    }
-    else {
+  // addMovie(movie: Movie) {
+  //   if (this.CurrentUser == undefined) {
+  //     this.Movies.push(movie);
+  //     this.MovieSubject.next(this.Movies);
+  //   }
+  //   else {
 
-      this.CurrentUserMovies?.push(movie);
-      if (this.CurrentUserMovies != undefined) {
-        this.MovieSubject.next(this.CurrentUserMovies);
-      }
-    }
-  }
+  //     this.CurrentUserMovies?.push(movie);
+  //     if (this.CurrentUserMovies != undefined) {
+  //       this.MovieSubject.next(this.CurrentUserMovies);
+  //     }
+  //   }
+  // }
 
 }

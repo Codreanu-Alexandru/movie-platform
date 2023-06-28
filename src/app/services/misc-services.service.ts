@@ -165,4 +165,27 @@ export class MiscServicesService {
       return true;
     }
   }
+
+  getRatingById(id: number) {
+    if (id >= 0 && id <= this.Ratings.length) {
+      return this.Ratings[id - 1];
+    }
+    else {
+      return {
+        id: 0,
+        name: 'N/A',
+        description: 'Not Specified'
+      }
+    }
+  }
+
+  getGenresByIds(ids: number[]) {
+    let genres: Genre[] = [];
+
+    ids.forEach(element => {
+      genres.push(this.Genres[element - 1]);
+    });
+
+    return genres;
+  }
 }
