@@ -12,7 +12,7 @@ export class AuthService {
   private token: string | null = '';
   private users: User[] = userData;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private router: Router) {
     if (sessionStorage.getItem('userToken')) {
       this.token = sessionStorage.getItem('userToken');
     }
