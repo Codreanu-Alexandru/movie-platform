@@ -6,13 +6,12 @@ import { RegisterFormComponent } from './register-module/register-form/register-
 
 
 const routes: Routes = [
-  //TO BE MODIFIED
   {
-    path: 'login',
+    path: 'login-form',
     loadChildren: () => import('./log-in-module/log-in.module').then(m => m.LogInModule)
   },
   {
-    path: 'regis',
+    path: 'register-form',
     loadChildren: () => import('./register-module/register.module').then(m => m.RegisterModule)
   },
   {
