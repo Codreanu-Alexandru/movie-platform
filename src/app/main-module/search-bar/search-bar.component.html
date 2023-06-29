@@ -1,1 +1,11 @@
-<p>search-bar works!</p>
+<div class="search-bar">
+    <input class="bar" type="text" [(ngModel)]="searchTerm" (keyup)="search()" placeholder="Movies...">
+    <div *ngIf="searchResults">
+        <div *ngFor="let item of searchResults">
+            <button class="search-button" (click)="onSearchMovie(item)">
+                <img class="image-search" src="{{item.image}}">
+                {{ item.title }}
+            </button>
+        </div>
+    </div>
+</div>

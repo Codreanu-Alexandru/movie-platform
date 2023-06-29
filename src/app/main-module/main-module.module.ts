@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { MainModuleRoutingModule } from './main-module-routing.module';
 import { MainTableComponent } from './main-table/main-table.component';
 import { MovieFormComponent } from './movie-form/movie-form.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -21,7 +21,6 @@ import { GenresConverterPipe } from '../pipes/genres-converter.pipe';
     MainTableComponent,
     MovieFormComponent,
     SearchBarComponent,
-    AdvancedSearchComponent,
     MinutesConverterPipe,
     DateConverterPipe,
     RatingConverterPipe,
@@ -35,6 +34,7 @@ import { GenresConverterPipe } from '../pipes/genres-converter.pipe';
     NzButtonModule,
     NzIconModule,
     NzModalModule,
+    FormsModule
   ]
 })
 export class MainModuleModule { }

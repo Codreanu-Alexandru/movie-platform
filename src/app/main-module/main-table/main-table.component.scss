@@ -10,6 +10,24 @@
     gap: 50px;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-add {
+    position: absolute;
+    right: 10px;
+    top: 5px
+}
+
+#main-table-pagination {
+    position: absolute;
+    z-index: 1;
+    left: 10px;
+    top: 5px
+}
+
 #main-table {
     max-width: 75%;
 }
@@ -21,8 +39,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 500;
 }
 
+.info {
+    display: flex;
+
+    .head-info {
+        padding-left: 10px;
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 10px;
+    }
+
+    .body-info {
+        padding-left: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .title {
+        font-size: 32px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    img {
+        height: 300px;
+    }
+}
 
 .red {
     background-color: lightsalmon;

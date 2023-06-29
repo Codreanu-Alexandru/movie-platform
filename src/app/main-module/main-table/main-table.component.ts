@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { User } from 'src/app/interfaces/user.interface';
 import { MovieServiceService } from 'src/app/services/movie-service.service';
@@ -10,8 +10,12 @@ import { MovieServiceService } from 'src/app/services/movie-service.service';
   styleUrls: ['./main-table.component.scss']
 })
 export class MainTableComponent {
+  @Input() user?: User;
+
+  infoMovie: Movie | undefined;
   currentMovies: Movie[];
-  allUserMovies: Movie[];
+  allUserMovies: Movie[] = [];
+
   constructor(private service: MovieServiceService) {
     this.currentMovies = [];
     let user: User = {
@@ -99,15 +103,47 @@ export class MainTableComponent {
       ]
     };
 
-    this.service.User = user;
+    this.service.User = this.user != undefined ? this.user : user;
     this.allUserMovies = service.UserMovies;
     this.onPageIndexChanged(1);
   }
 
+  onMovieSelected(event: any) {
+    let movieIndex = -1;
+    this.allUserMovies.forEach((element, index) => {
+      if (event.id == element.id) {
+        movieIndex = index;
+      }
+    });
+
+    if (movieIndex != -1) {
+      this.onPageIndexChanged(Math.ceil((movieIndex + 1) / 6));
+    }
+  }
+
+  deleteRow(row: Movie) {
+    const index = this.allUserMovies.findIndex(m => m === row);
+    if (index > -1) {
+      this.allUserMovies.splice(index, 1);
+    }
+    const indexCurrent = this.currentMovies.findIndex(m => m == row);
+    if (indexCurrent > -1) {
+      this.currentMovies.splice(indexCurrent, 1);
+      this.onPageIndexChanged(Math.ceil((indexCurrent + 1) / 6));
+    }
+  }
+
+  infoRow(row: Movie) {
+    this.infoMovie = row;
+  }
+
+  modifyRow(row: Movie) {
+    //form here
+  }
+
   onPageIndexChanged(pageIndex: number): void {
-    const startIndex = (pageIndex - 1) * 8;
-    this.currentMovies = this.allUserMovies.slice(startIndex, startIndex + 8);
-    this.allUserMovies = this.service.UserMovies
+    const startIndex = (pageIndex - 1) * 6;
+    this.currentMovies = this.allUserMovies.slice(startIndex, startIndex + 6);
   }
   getColorClass(value: number): string {
     if (value == -1) {

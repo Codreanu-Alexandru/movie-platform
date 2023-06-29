@@ -69,6 +69,10 @@ export class MovieServiceService {
     }
   }
 
+  addUserMovie(movie: Movie) {
+    this.userMovies.push(movie);
+  }
+
   // deleteMovie(movie: Movie) {
   //   if (this.CurrentUser == undefined) {
   //     const index = this.Movies.findIndex(() => movie);

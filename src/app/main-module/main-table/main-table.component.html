@@ -1,4 +1,38 @@
 <div class="main-container">
+
+    <app-search-bar (movieFromSearchBar)="onMovieSelected($event)"></app-search-bar>
+
+    <nz-pagination id="main-table-pagination" [nzPageSize]="6" [nzTotal]="allUserMovies.length"
+        [nzShowSizeChanger]="false" (nzPageIndexChange)="onPageIndexChanged($event)"></nz-pagination>
+
+    <button class="button-add" nz-button nzType="default" nzShape="circle">
+        <span nz-icon nzType="plus" nzTheme="outline"></span></button>
+
+    <div *ngIf="infoMovie != undefined" class="info">
+        <img src="{{ infoMovie.image }}">
+        <div>
+            <div class="head-info">
+                <p class="title">{{infoMovie.title}}</p>
+                <div class="dot" style="width: 50px; height: 50px;" [ngClass]="getColorClass(infoMovie.score)">
+                    {{ infoMovie.score }}
+                </div>
+            </div>
+            <div class="body-info">
+                <p>
+                    Runtime: {{ infoMovie.runtime | minutesConverter}}
+                </p>
+                <p>
+                    Released: {{ infoMovie.releaseDate | dateConverter }}
+                </p>
+                <p>
+                    Genres: {{ infoMovie.genres | genresConverter }}
+                </p>
+                <p>
+                    Rating: {{ infoMovie.rating | ratingConverter }}
+                </p>
+            </div>
+        </div>
+    </div>
     <nz-table id="main-table" #basicTable [nzData]="currentMovies" [nzFrontPagination]="true"
         [nzShowPagination]="false">
         <thead>
@@ -34,9 +68,17 @@
                 </td>
                 <td>{{ data.genres | genresConverter }}</td>
                 <td>{{ data.rating | ratingConverter }}</td>
+                <td>
+                    <div class="buttons">
+                        <button nz-button nzType="default" nzShape="circle" (click)="infoRow(data)">
+                            <span nz-icon nzType="info-circle" nzTheme="outline"></span></button>
+                        <button nz-button nzType="default" nzShape="circle" (click)="modifyRow(data)">
+                            <span nz-icon nzType="edit" nzTheme="outline"></span></button>
+                        <button nz-button nzType="default" nzShape="circle" (click)="deleteRow(data)">
+                            <span nz-icon nzType="delete" nzTheme="outline"></span></button>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </nz-table>
-    <nz-pagination id="main-table-pagination" [nzPageSize]="8" [nzTotal]="allUserMovies.length"
-        [nzShowSizeChanger]="false" (nzPageIndexChange)="onPageIndexChanged($event)"></nz-pagination>
 </div>
