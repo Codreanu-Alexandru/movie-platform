@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from '../helpers/custom-validators';
+import { CustomValidators } from '../../helpers/custom-validators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LogInPayload } from 'src/app/interfaces/payload.interface';
 import { Router } from '@angular/router';
@@ -54,7 +54,7 @@ export class LogInComponent implements OnInit {
     }
     if(this.loginForm.valid) {
       if(this.authService.successLogIn(payload)) {
-        this.router.navigateByUrl('/test');
+        this.router.navigateByUrl('/main-table');
       }
       else {
         this.incorrectLogIn = true;
