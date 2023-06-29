@@ -43,7 +43,12 @@ export class AuthService {
     for(let user of this.users) {
         if(user.email == payload.email && user.password == payload.password) {
             this.token = "QpwL5tke4Pnpja7X4"; // RANDOM TOKEN
-            sessionStorage.setItem('userToken', this.token);
+            if(payload.rememberMe) {
+              localStorage.setItem('userToken', this.token);
+            }
+            else {
+              sessionStorage.setItem('userToken', this.token);
+            }
             return true;
         }
     }
