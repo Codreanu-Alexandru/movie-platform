@@ -45,7 +45,7 @@ export class AuthService {
 
     for(let user of this.users) {
         if(user.email == payload.email && user.password == payload.password) {
-            this.token = "QpwL5tke4Pnpja7X4"; // RANDOM TOKEN
+            this.token = user.id.toString();
             if(payload.rememberMe) {
               localStorage.setItem('userToken', this.token);
             }
@@ -58,8 +58,16 @@ export class AuthService {
     return false;
   }
 
-  addUser(newUser: User) {
+  addUser(newUser: User): boolean {
+
+    for(let user of this.users) {
+      if(user.email == newUser.email) {
+        return false;
+      }
+    }
     userData.push(newUser);
     console.log(this.users);
+
+    return true;
   }
 }
