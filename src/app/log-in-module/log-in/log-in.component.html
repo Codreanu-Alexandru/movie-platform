@@ -3,6 +3,9 @@
       <img
         class="log-in-image"
       />
+      <p>
+        Am i logged in? <b>{{ userToken ? "yes" : "no" }}</b>
+      </p>
       <h1>Log In</h1>
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your e-mail!">
@@ -41,11 +44,14 @@
       </nz-form-item>
       <div nz-row class="login-form-margin">
         <div nz-col [nzSpan]="12">
-          <label nz-checkbox formControlName="remember">
+          <label nz-checkbox [(ngModel)]="rememberMe" formControlName="remember">
             <span>Remember me</span>
           </label>
         </div>
       </div>
       <button nz-button (click)="logIn()" class="login-form-button" [nzType]="'primary'">Log in</button>
+      <div class="red-text" *ngIf="incorrectLogIn">
+        Incorrect username or password
+      </div>
     </form>
   </div>
