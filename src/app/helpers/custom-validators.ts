@@ -3,7 +3,6 @@ import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@an
 export class CustomValidators {
 
   public static passwordValidator(password: FormControl): ValidationErrors | null {
-
     if (!password?.value?.match(/\d/)) {
       return { containsNumber: true };
     }
@@ -18,7 +17,6 @@ export class CustomValidators {
   public static passwordMatch(originalPassword: string): ValidatorFn {
     return (password: any): ValidationErrors | null => {
       if(!(originalPassword === password?.value)) {
-        console.log(originalPassword, " ", password.value);
         return { matching: true };
       }
       return null;
