@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../helpers/custom-validators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LogInPayload } from 'src/app/interfaces/payload.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -13,11 +14,16 @@ export class LogInComponent implements OnInit {
   loginForm!: FormGroup;
   logInEmail!: string;
   logInPassword!: string;
+  userToken: string | null = '';
+  incorrectLogIn!: boolean;
+  rememberMe!: boolean;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.initializeForm();
+    this.userToken = this.authService.getToken();
+    this.incorrectLogIn = false;
   }
 
   initializeForm(): void {
@@ -43,26 +49,16 @@ export class LogInComponent implements OnInit {
   logIn() {
     var payload: LogInPayload = {
       email: this.logInEmail,
-      password: this.logInPassword
+      password: this.logInPassword,
+      rememberMe: this.rememberMe
     }
-    // TO BE CHANGED LATER
-    if(this.loginForm.valid && this.authService.successLogIn(payload)) {
-      alert("VALID FORM");
-      return;
-    }
-    else{
-      alert("INVALID FORM");
-      return;
+    if(this.loginForm.valid) {
+      if(this.authService.successLogIn(payload)) {
+        this.router.navigateByUrl('/test');
+      }
+      else {
+        this.incorrectLogIn = true;
+      }
     }
   }
-
-  // logIn() {
-  //   if(!this.loginForm.valid) {
-  //     alert("INVALID FORM");
-  //     return;
-  //   }
-  //   else {
-  //     this.router.navigate(['test']);
-  //   }
-  // }
 }
