@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../../helpers/custom-validators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LogInPayload } from 'src/app/interfaces/payload.interface';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
+import { User } from 'src/app/interfaces/user.interface';
 
 @Component({
   selector: 'app-log-in',
@@ -18,7 +19,7 @@ export class LogInComponent implements OnInit {
   incorrectLogIn!: boolean;
   rememberMe!: boolean;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -52,11 +53,34 @@ export class LogInComponent implements OnInit {
       password: this.logInPassword,
       rememberMe: this.rememberMe
     }
-    if(this.loginForm.valid) {
-      if(this.authService.successLogIn(payload)) {
-        this.router.navigateByUrl('/main-table');
-      }
-      else {
+    if (this.loginForm.valid) {
+      if (this.authService.successLogIn(payload)) {
+        // Create the parameter you want to pass
+        const parameterValue = payload;
+
+        const user: User | undefined = this.authService.getUsers().find(u => u.email == this.logInEmail && u.password == this.logInPassword);
+        // Set up the navigation extras object
+
+        let navigationExtras: NavigationExtras;
+
+        if (user != undefined) {
+          navigationExtras = {
+            queryParams: {
+              id: user.id
+            }
+          };
+        }
+        else {
+          navigationExtras = {
+            queryParams: {
+              id: -1
+            }
+          };
+        }
+
+        // Redirect with the parameter
+        this.router.navigate(['/main-table'], navigationExtras);
+      } else {
         this.incorrectLogIn = true;
       }
     }

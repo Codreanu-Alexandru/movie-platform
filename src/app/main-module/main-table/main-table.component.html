@@ -5,13 +5,13 @@
     <nz-pagination id="main-table-pagination" [nzPageSize]="6" [nzTotal]="allUserMovies.length"
         [nzShowSizeChanger]="false" (nzPageIndexChange)="onPageIndexChanged($event)"></nz-pagination>
 
-        <div class="button-add">
-            <button nz-button nzType="default" nzShape="circle">
-                    <span nz-icon nzType="plus" nzTheme="outline"></span></button>
-            <button nz-button (click)="logOut()" nzType="default" nzShape="circle">
-                    <span nz-icon nzType="logout" nzTheme="outline"></span></button>
-        </div>
-            
+    <div class="button-add">
+        <button nz-button nzType="default" nzShape="circle">
+            <span nz-icon nzType="plus" nzTheme="outline"></span></button>
+        <button nz-button (click)="logOut()" nzType="default" nzShape="circle">
+            <span nz-icon nzType="logout" nzTheme="outline"></span></button>
+    </div>
+
 
     <div *ngIf="infoMovie != undefined" class="info">
         <img src="{{ infoMovie.image }}">
@@ -43,13 +43,13 @@
         <thead>
             <tr>
                 <th style="width: 50px;">Image</th>
-                <th style="width: 350px;">Title</th>
-                <th style="width: 110px;">Runtime</th>
-                <th style="width: 225px;">Release Date</th>
-                <th style="width: 45px;">Score</th>
-                <th style="width: 45px;">Your Score</th>
-                <th style="width: 250px;">Genres</th>
-                <th style="width: 45px;">Rating</th>
+                <th style="width: 350px; cursor: pointer;" (click)="sortBy('title')">Title</th>
+                <th style="width: 110px; cursor: pointer;" (click)="sortBy('runtime')">Runtime</th>
+                <th style="width: 225px; cursor: pointer;" (click)="sortBy('releaseDate')">Release Date</th>
+                <th style="width: 45px; cursor: pointer;" (click)="sortBy('score')">Score</th>
+                <th style="width: 45px; cursor: pointer;" (click)="sortBy('yourScore')">Your Score</th>
+                <th style="width: 250px; cursor: pointer;" (click)="sortBy('genres')">Genres</th>
+                <th style="width: 45px; cursor: pointer;" (click)="sortBy('rating')">Rating</th>
                 <th style="width: 75px;">Actions</th>
             </tr>
         </thead>

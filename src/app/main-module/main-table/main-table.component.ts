@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { User } from 'src/app/interfaces/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { MovieServiceService } from 'src/app/services/movie-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -10,14 +11,14 @@ import { MovieServiceService } from 'src/app/services/movie-service.service';
   templateUrl: './main-table.component.html',
   styleUrls: ['./main-table.component.scss']
 })
-export class MainTableComponent {
+export class MainTableComponent implements OnInit {
   @Input() user?: User;
 
   infoMovie: Movie | undefined;
   currentMovies: Movie[];
   allUserMovies: Movie[] = [];
 
-  constructor(private service: MovieServiceService, private authService: AuthService) {
+  constructor(private service: MovieServiceService, private authService: AuthService, private router: ActivatedRoute) {
     this.currentMovies = [];
     let user: User = {
       id: 2,
@@ -103,10 +104,18 @@ export class MainTableComponent {
         }
       ]
     };
-
     this.service.User = this.user != undefined ? this.user : user;
     this.allUserMovies = service.UserMovies;
     this.onPageIndexChanged(1);
+  }
+  ngOnInit(): void {
+    this.router.queryParams.subscribe(params => {
+      const parameterValue = params['id'];
+      this.user = this.authService.getUsers().find(u => u.id == parameterValue);
+      this.service.User = this.user;
+      this.allUserMovies = this.service.UserMovies;
+      this.onPageIndexChanged(1);
+    });
   }
 
   onMovieSelected(event: any) {
@@ -120,6 +129,8 @@ export class MainTableComponent {
     if (movieIndex != -1) {
       this.onPageIndexChanged(Math.ceil((movieIndex + 1) / 6));
     }
+
+    this.infoMovie = event;
   }
 
   deleteRow(row: Movie) {
@@ -142,6 +153,36 @@ export class MainTableComponent {
     //form here
   }
 
+  sortBy(what: string) {
+    switch (what) {
+      case 'title':
+        this.allUserMovies.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'runtime':
+        this.allUserMovies.sort((a, b) => b.runtime - a.runtime);
+        break;
+      case 'releaseDate':
+        this.allUserMovies.sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+        break;
+      case 'score':
+        this.allUserMovies.sort((a, b) => b.score - a.score);
+        break;
+      case 'yourScore':
+        this.allUserMovies.sort((a, b) => b.userScore - a.userScore);
+        break;
+      case 'genres':
+        this.allUserMovies.sort((a, b) => b.genres.length - a.genres.length);
+        break;
+      case 'rating':
+        this.allUserMovies.sort((a, b) => b.rating - a.rating);
+        break;
+      default:
+        // Invalid property, do nothing
+        break;
+    }
+
+    this.onPageIndexChanged(1);
+  }
   onPageIndexChanged(pageIndex: number): void {
     const startIndex = (pageIndex - 1) * 6;
     this.currentMovies = this.allUserMovies.slice(startIndex, startIndex + 6);
