@@ -35,7 +35,7 @@
             Password is required
           </div>
           <div class="red-text" *ngIf="password?.errors?.['minLength']">
-            Password needs to be at lease 8 characters length
+            Password needs to be at least 8 characters long
           </div>
           <div class="red-text" *ngIf="password?.errors?.['containsNumber']">
             Password needs to contain at least one number
@@ -47,6 +47,9 @@
           <label nz-checkbox [(ngModel)]="rememberMe" formControlName="remember">
             <span>Remember me</span>
           </label>
+        </div>
+        <div nz-row class="register-section">
+          <p>Don't have an account? <a [routerLink]="'/register'">Register</a></p>
         </div>
       </div>
       <button nz-button (click)="logIn()" class="login-form-button" [nzType]="'primary'">Log in</button>
