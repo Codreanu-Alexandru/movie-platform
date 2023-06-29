@@ -22,8 +22,19 @@ export class LogInComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.initializeForm();
     this.userToken = this.authService.getToken();
+    if(this.userToken) {
+      const user: User | undefined = this.authService.getUsers().find(u => u.id == Number(this.userToken));
+      let navigationExtras: NavigationExtras;
+
+      navigationExtras = {
+        queryParams: {
+          id: user?.id
+        }
+      };
+      this.router.navigate(['/main-table'], navigationExtras);
+    }
+    this.initializeForm();
     this.incorrectLogIn = false;
   }
 
