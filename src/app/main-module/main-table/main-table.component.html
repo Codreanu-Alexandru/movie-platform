@@ -5,8 +5,13 @@
     <nz-pagination id="main-table-pagination" [nzPageSize]="6" [nzTotal]="allUserMovies.length"
         [nzShowSizeChanger]="false" (nzPageIndexChange)="onPageIndexChanged($event)"></nz-pagination>
 
-    <button class="button-add" nz-button nzType="default" nzShape="circle">
-        <span nz-icon nzType="plus" nzTheme="outline"></span></button>
+        <div class="button-add">
+            <button nz-button nzType="default" nzShape="circle">
+                    <span nz-icon nzType="plus" nzTheme="outline"></span></button>
+            <button nz-button (click)="logOut()" nzType="default" nzShape="circle">
+                    <span nz-icon nzType="logout" nzTheme="outline"></span></button>
+        </div>
+            
 
     <div *ngIf="infoMovie != undefined" class="info">
         <img src="{{ infoMovie.image }}">

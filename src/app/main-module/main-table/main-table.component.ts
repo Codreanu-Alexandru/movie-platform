@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { User } from 'src/app/interfaces/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { MovieServiceService } from 'src/app/services/movie-service.service';
 
 
@@ -16,7 +17,7 @@ export class MainTableComponent {
   currentMovies: Movie[];
   allUserMovies: Movie[] = [];
 
-  constructor(private service: MovieServiceService) {
+  constructor(private service: MovieServiceService, private authService: AuthService) {
     this.currentMovies = [];
     let user: User = {
       id: 2,
@@ -162,5 +163,9 @@ export class MainTableComponent {
     } else {
       return '';
     }
+  }
+
+  logOut() {
+    this.authService.logOut();
   }
 }
