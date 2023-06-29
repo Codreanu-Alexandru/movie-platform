@@ -66,5 +66,8 @@
         </nz-form-control>
       </nz-form-item>
       <button nz-button (click)="createAccount()" class="register-form-button" [nzType]="'primary'">Create account</button>
+      <div class="red-text" *ngIf="incorrectRegister">
+        E-Mail already used
+      </div>
     </form>
   </div>

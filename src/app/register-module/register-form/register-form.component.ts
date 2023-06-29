@@ -16,11 +16,13 @@ export class RegisterFormComponent implements OnInit {
   registerPassword!: string;
   registerPasswordRepeat!: string;
   registerUsername!: string;
+  incorrectRegister!: boolean;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.initializeForm();
+    this.incorrectRegister = false;
   }
 
   initializeForm(): void {
@@ -55,8 +57,12 @@ export class RegisterFormComponent implements OnInit {
     }
 
     if(this.registerForm.valid) {
-      this.authService.addUser(newUser);
-      this.router.navigateByUrl('/');
+      if(this.authService.addUser(newUser)) {
+        this.router.navigateByUrl('/');
+      }
+      else {
+        this.incorrectRegister = true;
+      }
     }
   }
 }
