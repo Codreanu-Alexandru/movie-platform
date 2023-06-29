@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { LogInPayload } from '../interfaces/payload.interface';
 import { User } from '../interfaces/user.interface';
 import userData from '../resources/Users.json';
@@ -21,6 +20,10 @@ export class AuthService {
     if (localStorage.getItem('userToken')) {
       this.token = localStorage.getItem('userToken');
     }
+  }
+
+  getUsers(): User[] {
+    return userData;
   }
 
   getToken(): string | null {
@@ -53,5 +56,10 @@ export class AuthService {
         }
     }
     return false;
+  }
+
+  addUser(newUser: User) {
+    userData.push(newUser);
+    console.log(this.users);
   }
 }
